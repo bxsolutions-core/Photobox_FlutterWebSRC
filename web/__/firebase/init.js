@@ -1,18 +1,12 @@
 if (typeof firebase === 'undefined') throw new Error('hosting/init-error: Firebase SDK not detected. You must include it before /__/firebase/init.js');
 
 var firebaseConfig = {
-//  "projectId": "dorco-retail-event",
-//  "appId": "1:305924165949:web:da52d1dbdd18b1f696b554",
-//  "storageBucket": "dorco-retail-event.firebasestorage.app",
-//  "apiKey": "AIzaSyAERZxMnQYNnmwjVI1Nujfn9vlwpfZzI3s",
-//  "authDomain": "dorco-retail-event.firebaseapp.com",
-//  "messagingSenderId": "305924165949"
-    'apiKey': 'AIzaSyBKy80SCh6HJcdJfDr1IqmhaXHlbC5Q6NE',
-    'appId': '1:305924165949:web:0b99b140e37a311096b554',
-    'messagingSenderId': '305924165949',
-    'projectId': 'dorco-retail-event',
-    'authDomain': 'dorco-retail-event.firebaseapp.com',
-    'storageBucket': 'dorco-retail-event.firebasestorage.app',
+  "projectId": "dorco-retail-event",
+  "appId": "1:305924165949:web:da52d1dbdd18b1f696b554",
+  "storageBucket": "dorco-retail-event.firebasestorage.app",
+  "apiKey": "AIzaSyAERZxMnQYNnmwjVI1Nujfn9vlwpfZzI3s",
+  "authDomain": "dorco-retail-event.firebaseapp.com",
+  "messagingSenderId": "305924165949"
 };
 
 if (firebaseConfig) {

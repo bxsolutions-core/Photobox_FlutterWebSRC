@@ -53,17 +53,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    // projectId: 'dorco-retail-event',
-    // appId: '1:305924165949:web:d88b298b8aaf7bfc96b554',
-    // apiKey: 'AIzaSyAERZxMnQYNnmwjVI1Nujfn9vlwpfZzI3s',
-    // storageBucket: 'dorco-retail-event.firebasestorage.app',
-    // authDomain: 'dorco-retail-event.firebaseapp.com',
-    // messagingSenderId: '305924165949',
-    apiKey: 'AIzaSyBKy80SCh6HJcdJfDr1IqmhaXHlbC5Q6NE',
-    appId: '1:305924165949:web:0b99b140e37a311096b554',
-    messagingSenderId: '305924165949',
-    projectId: 'dorco-retail-event',
-    authDomain: 'dorco-retail-event.firebaseapp.com',
-    storageBucket: 'dorco-retail-event.firebasestorage.app',
+    apiKey: "AIzaSyAERZxMnQYNnmwjVI1Nujfn9vlwpfZzI3s",
+    authDomain: "dorco-retail-event.firebaseapp.com",
+    projectId: "dorco-retail-event",
+    storageBucket: "dorco-retail-event.firebasestorage.app",
+    messagingSenderId: "305924165949",
+    appId: "1:305924165949:web:da52d1dbdd18b1f696b554"
   );
 }

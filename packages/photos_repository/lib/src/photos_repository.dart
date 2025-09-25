@@ -116,8 +116,10 @@ class PhotosRepository {
 
       // Add to Firestore Database
       final doc = await FirebaseFirestore.instance.collection('uploads').add({
-        'campaign_id': _campaignID,
+        'createdAt': FieldValue.serverTimestamp(),
+        'campaignID': _campaignID,
         'filename': fileName,
+        'status': 'pending'
       });
 
       // Add to Plesk Database
@@ -207,8 +209,8 @@ class PhotosRepository {
         },
         body: jsonEncode(<String, dynamic>{
           'campaign_id': _campaignID,
-          'filename': fileName,
           'firestore_id': firestoreID,
+          'filename': fileName,
         }), // <-- JSON body
       );
 
