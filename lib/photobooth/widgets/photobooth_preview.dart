@@ -78,30 +78,30 @@ class PhotoboothPreview extends StatelessWidget {
           ),
         ),
 
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 32,bottom: 30),
-            child: Semantics(
-              focusable: true,
-              button: true,
-              child: Material(
-                clipBehavior: Clip.hardEdge,
-                shape: const CircleBorder(),
-                color: PhotoboothColors.transparent,
-                child: InkWell(
-                  key: const Key('photoboothPreview_photo_toggleCameraButton'),
-                  onTap: onToggleCameraType,
-                  child: Image.asset(
-                    'assets/icons/flip_camera_button_icon.png',
-                    height: 48,
-                    width: 48,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+        // Align(
+        //   alignment: Alignment.bottomRight,
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(right: 32,bottom: 30),
+        //     child: Semantics(
+        //       focusable: true,
+        //       button: true,
+        //       child: Material(
+        //         clipBehavior: Clip.hardEdge,
+        //         shape: const CircleBorder(),
+        //         color: PhotoboothColors.transparent,
+        //         child: InkWell(
+        //           key: const Key('photoboothPreview_photo_toggleCameraButton'),
+        //           onTap: onToggleCameraType,
+        //           child: Image.asset(
+        //             'assets/icons/flip_camera_button_icon.png',
+        //             height: 48,
+        //             width: 48,
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
