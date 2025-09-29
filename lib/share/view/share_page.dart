@@ -156,7 +156,7 @@ class _ConfirmationDialogContent extends StatelessWidget {
                     child: Text(
                       l10n.shareRetakeConfirmationConfirmButtonText,
                       style: theme.textTheme.labelLarge?.copyWith(
-                        color: PhotoboothColors.black,
+                        color: PhotoboothColors.white,
                       ),
                     ),
                   ),

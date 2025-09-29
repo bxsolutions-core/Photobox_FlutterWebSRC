@@ -140,7 +140,7 @@
     "@shareErrorDialogSubheading": {
         "description": "Subheading shown on the share error dialog."
     },
-    "sharePageProgressOverlayHeading": "We're making your photo pixel perfect! ",
+    "sharePageProgressOverlayHeading": "We're making your photo sleek perfect! ",
     "@sharePageProgressOverlayHeading": {
         "description": "Heading shown on the share page progress overlay."
     },

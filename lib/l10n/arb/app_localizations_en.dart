@@ -128,7 +128,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sharePageProgressOverlayHeading =>
-      'We\'re making your photo pixel perfect! ';
+      'We\'re making your photo sleek perfect! ';
 
   @override
   String get sharePageProgressOverlaySubheading =>

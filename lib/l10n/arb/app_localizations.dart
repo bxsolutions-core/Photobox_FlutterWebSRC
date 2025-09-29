@@ -327,7 +327,7 @@ abstract class AppLocalizations {
   /// Heading shown on the share page progress overlay.
   ///
   /// In en, this message translates to:
-  /// **'We\'re making your photo pixel perfect! '**
+  /// **'We\'re making your photo sleek perfect! '**
   String get sharePageProgressOverlayHeading;
 
   /// Subheading shown on the share page progress overlay.

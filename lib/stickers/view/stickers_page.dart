@@ -54,9 +54,9 @@ class StickersView extends StatelessWidget {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    const Positioned.fill(
-                      child: ColoredBox(color: PhotoboothColors.peridotGreen),
-                    ),
+                    // const Positioned.fill(
+                    //   child: ColoredBox(color: PhotoboothColors.white),
+                    // ),
 
                     // if (image != null) PreviewImage(data: image.data),
                     if (image != null)
@@ -64,7 +64,7 @@ class StickersView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: PhotoboothColors.peridotGreen,
+                            color: PhotoboothColors.white,
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: PreviewImage(data: image.data),

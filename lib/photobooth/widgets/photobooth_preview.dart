@@ -29,12 +29,12 @@ class PhotoboothPreview extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsetsGeometry.fromLTRB(20, 0, 20, 0),
             child: ColoredBox(
-              color: PhotoboothColors.peridotGreen,
+              color: PhotoboothColors.white,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: PhotoboothColors.peridotGreen,
+                    color: PhotoboothColors.white,
                     borderRadius: BorderRadius.circular(12), // same radius
                   ),
                   child: AspectRatio(
