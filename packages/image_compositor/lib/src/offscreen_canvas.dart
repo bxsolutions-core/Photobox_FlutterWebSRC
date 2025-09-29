@@ -110,7 +110,12 @@ class OffScreenCanvas {
   /// whose size is specified by width and height and clips the path.
   void clipRect(int x, int y, int width, int height) {
     js_util.callMethod<void>(_context!, 'beginPath', const <dynamic>[]);
-    js_util.callMethod<void>(_context!, 'rect', <dynamic>[x, y, width, height]);
+    js_util.callMethod<void>(_context!, 'rect', <dynamic>[
+      x,
+      y,
+      width,
+      height,
+    ]);
     js_util.callMethod<void>(_context!, 'clip', const <dynamic>[]);
   }
 
@@ -123,8 +128,11 @@ class OffScreenCanvas {
   ///
   /// !Warning API still in experimental status, feature detect before using.
   Object? transferToImageBitmap() {
-    return js_util
-        .callMethod(_offScreenCanvas!, 'transferToImageBitmap', <dynamic>[]);
+    return js_util.callMethod(
+      _offScreenCanvas!,
+      'transferToImageBitmap',
+      <dynamic>[],
+    );
   }
 
   /// Draws canvas contents to a rendering context.
@@ -140,7 +148,7 @@ class OffScreenCanvas {
       0,
       0,
       width,
-      height
+      height,
     ]);
   }
 

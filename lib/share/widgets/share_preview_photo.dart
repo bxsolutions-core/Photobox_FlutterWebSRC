@@ -12,7 +12,7 @@ class SharePreviewPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform.rotate(
-      angle: -5 * (math.pi / 180),
+      angle: 0, //-5 * (math.pi / 180),
       child: Container(
         constraints: const BoxConstraints(maxWidth: 600, maxHeight: 400),
         decoration: const BoxDecoration(

@@ -50,8 +50,8 @@ class ShareBody extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       constraints: const BoxConstraints(
-                        maxWidth: 200,
-                        maxHeight: 200,
+                        maxWidth: 160,
+                        maxHeight: 160,
                       ),
                       child: PrettyQrView.data(
                         data: qrData,

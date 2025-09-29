@@ -19,8 +19,13 @@ class ImageCompositor {
     required List<dynamic> layers,
     required double aspectRatio,
   }) {
-    return _OffscreenCompositor(data, width, height, layers, aspectRatio)
-        .composite();
+    return _OffscreenCompositor(
+      data,
+      width,
+      height,
+      layers,
+      aspectRatio,
+    ).composite();
   }
 }
 
@@ -41,20 +46,22 @@ class _OffscreenCompositor {
 
   /// Left, Top, Right border size.
   static const _frameBorderSize = 15;
-  static const _frameBorderSizeLR = 64;
-  static const _frameBorderSizeT = 128;
+  static const _frameBorderSizeLR = 44;
+  static const _frameBorderSizeT = 180;
 
   Future<List<int>> composite() async {
-    final layers =
-        rawLayers.map((l) => CompositeLayer.fromJson(l as Map)).toList();
+    final layers = rawLayers
+        .map((l) => CompositeLayer.fromJson(l as Map))
+        .toList();
 
     final imageFutures = <Future<HtmlImage>>[];
 
     /// Load assets in parallel.
     final imageFuture = HtmlImageLoader(data).loadImage();
     for (var layerIndex = 0; layerIndex < layers.length; layerIndex++) {
-      final imageFuture =
-          HtmlImageLoader(layers[layerIndex].assetPath).loadImage();
+      final imageFuture = HtmlImageLoader(
+        layers[layerIndex].assetPath,
+      ).loadImage();
       imageFutures.add(imageFuture);
     }
 
@@ -95,14 +102,14 @@ class _OffscreenCompositor {
     const insideFrameX = _frameBorderSizeLR;
     const insideFrameY = _frameBorderSizeT;
     final insideFrameWidth = frameImage.width - (2 * _frameBorderSizeLR);
-    final insideFrameHeight = frameImage.height - (2 * _frameBorderSizeT);//insideFrameWidth ~/ targetAspectRatio;
+    final insideFrameHeight =
+        frameImage.height -
+        (1 * (_frameBorderSizeT + 44)); //insideFrameWidth ~/ targetAspectRatio;
 
     /// Render images to offscreen canvas.
     final canvas = OffScreenCanvas(targetWidth, targetHeight)
-
       /// Draw frame to cover full cropped area.
       ..drawImage(frameImage.imageElement, 0, 0, targetWidth, targetHeight)
-
       /// Clip to frame interior.
       ..clipRect(
         insideFrameX,
@@ -124,6 +131,7 @@ class _OffscreenCompositor {
     final videoImageWidth = (image.width * imageScaleFactor).toInt();
     final videoImageHeight = (image.height * imageScaleFactor).toInt();
 
+    image.imageElement.style.borderRadius = '36px';
     canvas.drawImage(
       image.imageElement,
       videoImageX,
@@ -135,6 +143,8 @@ class _OffscreenCompositor {
     for (var layerIndex = 0; layerIndex < layers.length; layerIndex++) {
       final layer = layers[layerIndex];
       final asset = await imageFutures[layerIndex];
+
+      asset.imageElement.style.borderRadius = '36px';
 
       /// Normalize coordinates to 0..1 based on original video image size.
       /// then scale to target.
