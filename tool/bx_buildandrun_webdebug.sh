@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Building Flutter web (debug) project..."
-flutter build web --debug
+flutter build web --debug --tree-shake-icons --pwa-strategy=offline-first --optimization-level=2
 
 echo "Moving build to new directory..."
 cp -r build/web/. /c/htdocs/eventpro.cheil.rocks/apps/DorcoSleekPhotobooth/

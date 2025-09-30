@@ -173,7 +173,7 @@ class TimerPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     canvas.drawCircle(size.center(Offset.zero), size.width / 2.0, paint);
-    paint.color = PhotoboothColors.white;
+    paint.color = PhotoboothColors.black;
     canvas.drawArc(Offset.zero & size, math.pi * 1.5, progress, false, paint);
   }
 

@@ -236,8 +236,8 @@ extension on html.VideoElement {
       ..setProperty('height', '100%')
       ..setProperty('transform', 'scaleX(-1)')
       ..setProperty('object-fit', 'cover')
-      ..setProperty('-webkit-transform', 'scaleX(-1)')
-      ..setProperty('-moz-transform', 'scaleX(-1)');
+      ..setProperty('--webkit-transform', 'scaleX(-1)')
+      ..setProperty('--moz-transform', 'scaleX(-1)');
   }
 
   void applyRearCameraStyles() {
@@ -248,7 +248,7 @@ extension on html.VideoElement {
       ..setProperty('height', '100%')
       ..setProperty('transform', 'scaleX(1)')
       ..setProperty('object-fit', 'cover')
-      ..setProperty('-webkit-transform', 'scaleX(1)')
-      ..setProperty('-moz-transform', 'scaleX(1)');
+      ..setProperty('--webkit-transform', 'scaleX(1)')
+      ..setProperty('--moz-transform', 'scaleX(1)');
   }
 }

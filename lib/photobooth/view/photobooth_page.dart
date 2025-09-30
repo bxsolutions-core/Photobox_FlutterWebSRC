@@ -9,8 +9,8 @@ import 'package:photobooth_ui/photobooth_ui.dart';
 
 const _videoConstraints = VideoConstraints(
   facingMode: FacingMode(type: CameraType.user, constrain: Constrain.exact),
-  width: VideoSize(minimum: 240, ideal: 720, maximum: 1080),
-  height: VideoSize(minimum: 320, ideal: 1280, maximum: 1920),
+  width: VideoSize(minimum: 480, ideal: 720, maximum: 1080),
+  height: VideoSize(minimum: 640, ideal: 960, maximum: 1440),
 );
 
 const _videoConstraintsRear = VideoConstraints(

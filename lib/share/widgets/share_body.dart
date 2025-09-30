@@ -33,6 +33,8 @@ class ShareBody extends StatelessWidget {
 
     debugPrint('SharePage.Body() ::-> ${file?.name}');
     final qrData = 'dorcoprint://${file?.name}';
+    final size = MediaQuery.of(context).size;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
@@ -43,8 +45,9 @@ class ShareBody extends StatelessWidget {
             padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
             child: Image.asset(
               'assets/backgrounds/DORCO_logo_ENG_Red.png',
-              filterQuality: FilterQuality.high,
-              width: 200,
+              width: size.height <= PhotoboothBreakpoints.small
+                  ? size.width * 0.4
+                  : size.width * 0.5,
             ),
           ),
           if (compositeStatus.isSuccess)

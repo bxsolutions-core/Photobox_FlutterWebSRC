@@ -22,6 +22,7 @@ class PhotoboothBackground extends StatelessWidget {
             child: Image.asset(
               'assets/backgrounds/lovedorco_logo_2.png',
               filterQuality: FilterQuality.high,
+              cacheWidth: 320,
               width: size.width * 0.75,
             ),
           ),
