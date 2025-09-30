@@ -46,8 +46,9 @@ class _OffscreenCompositor {
 
   /// Left, Top, Right border size.
   static const _frameBorderSize = 15;
-  static const _frameBorderSizeLR = 44;
-  static const _frameBorderSizeT = 180;
+  static const _frameBorderSizeLR = 80;
+  static const _frameBorderSizeT = 200;
+  static const _frameBorderSizeB = 240;
 
   Future<List<int>> composite() async {
     final layers = rawLayers
@@ -104,7 +105,7 @@ class _OffscreenCompositor {
     final insideFrameWidth = frameImage.width - (2 * _frameBorderSizeLR);
     final insideFrameHeight =
         frameImage.height -
-        (1 * (_frameBorderSizeT + 44)); //insideFrameWidth ~/ targetAspectRatio;
+        (1 * (_frameBorderSizeB + 44)); //insideFrameWidth ~/ targetAspectRatio;
 
     /// Render images to offscreen canvas.
     final canvas = OffScreenCanvas(targetWidth, targetHeight)

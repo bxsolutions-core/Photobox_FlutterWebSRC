@@ -38,8 +38,15 @@ class ShareBody extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const AnimatedPhotoIndicator(),
-
+          // const AnimatedPhotoIndicator(),
+          Padding(
+            padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
+            child: Image.asset(
+              'assets/backgrounds/DORCO_logo_ENG_Red.png',
+              filterQuality: FilterQuality.high,
+              width: 200,
+            ),
+          ),
           if (compositeStatus.isSuccess)
             AnimatedFadeIn(
               child: Column(

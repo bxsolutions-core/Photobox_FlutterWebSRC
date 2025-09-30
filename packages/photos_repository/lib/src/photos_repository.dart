@@ -78,6 +78,7 @@ class PhotosRepository {
   final ImageCompositor _imageCompositor;
   final String _campaignID;
 
+  final _useFirebaseUpload = false;
 
   /// Uploads photo to the [FirebaseStorage] if it doesn't already exist
   /// and returns [ShareUrls].
@@ -86,51 +87,51 @@ class PhotosRepository {
     required Uint8List data,
     required String shareText,
   }) async {
-
     FirebaseFirestore.instance.settings = const Settings(
       persistenceEnabled: true,
     );
 
-    Reference reference;
-    try {
-      reference = _firebaseStorage.ref('uploads/$fileName');
-    } catch (e, st) {
-      throw UploadPhotoException(
-        'Uploading photo $fileName failed. '
-        "Couldn't get storage reference 'uploads/$fileName'.\n"
-        'Error: $e. StackTrace: $st',
-      );
-    }
+    if (_useFirebaseUpload) {
+      Reference reference;
+      try {
+        reference = _firebaseStorage.ref('uploads/$fileName');
+      } catch (e, st) {
+        throw UploadPhotoException(
+          'Uploading photo $fileName failed. '
+          "Couldn't get storage reference 'uploads/$fileName'.\n"
+          'Error: $e. StackTrace: $st',
+        );
+      }
 
-    if (await _photoExists(reference)) {
-      return ShareUrls(
-        explicitShareUrl: _getSharePhotoUrl(fileName),
-        facebookShareUrl: _facebookShareUrl(fileName, shareText),
-        twitterShareUrl: _twitterShareUrl(fileName, shareText),
-      );
-    }
+      if (await _photoExists(reference)) {
+        return ShareUrls(
+          explicitShareUrl: _getSharePhotoUrl(fileName),
+          facebookShareUrl: _facebookShareUrl(fileName, shareText),
+          twitterShareUrl: _twitterShareUrl(fileName, shareText),
+        );
+      }
 
-    try {
-      // Add to Firebase Storage
-      await reference.putData(data);
+      try {
+        // Add to Firebase Storage
+        await reference.putData(data);
 
-      // Add to Firestore Database
-      final doc = await FirebaseFirestore.instance.collection('uploads').add({
-        'createdAt': FieldValue.serverTimestamp(),
-        'campaignID': _campaignID,
-        'filename': fileName,
-        'status': 'pending'
-      });
+        // Add to Firestore Database
+        final doc = await FirebaseFirestore.instance.collection('uploads').add({
+          'createdAt': FieldValue.serverTimestamp(),
+          'campaignID': _campaignID,
+          'filename': fileName,
+          'status': 'pending',
+        });
 
-      // Add to Plesk Database
-      await _trackPhotoEntry(fileName: fileName, firestoreID: doc.id);
-
-    } catch (error, stackTrace) {
-      throw UploadPhotoException(
-        'Uploading photo $fileName failed. '
-        "Couldn't upload data to ${reference.fullPath}.\n"
-        'Error: $error. StackTrace: $stackTrace',
-      );
+        // Add to Plesk Database
+        await _trackPhotoEntry(fileName: fileName, firestoreID: doc.id);
+      } catch (error, stackTrace) {
+        throw UploadPhotoException(
+          'Uploading photo $fileName failed. '
+          "Couldn't upload data to ${reference.fullPath}.\n"
+          'Error: $error. StackTrace: $stackTrace',
+        );
+      }
     }
 
     return ShareUrls(

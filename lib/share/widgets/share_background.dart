@@ -8,14 +8,14 @@ class ShareBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox.expand(
-          child: Image.asset(
-            'assets/backgrounds/photobooth_background.jpg',
-            repeat: ImageRepeat.repeat,
-            filterQuality: FilterQuality.high,
-            color: PhotoboothColors.black,
-          ),
-        ),
+        // SizedBox.expand(
+        //   child: Image.asset(
+        //     'assets/backgrounds/photobooth_background.jpg',
+        //     repeat: ImageRepeat.repeat,
+        //     filterQuality: FilterQuality.high,
+        //     color: PhotoboothColors.black,
+        //   ),
+        // ),
         Container(
           width: double.infinity,
           height: double.infinity,
@@ -24,8 +24,8 @@ class ShareBackground extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                PhotoboothColors.transparent,
-                PhotoboothColors.black54,
+                PhotoboothColors.black,
+                PhotoboothColors.black,
               ],
             ),
           ),
