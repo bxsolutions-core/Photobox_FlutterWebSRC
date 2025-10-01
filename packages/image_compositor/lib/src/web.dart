@@ -46,7 +46,7 @@ class _OffscreenCompositor {
 
   /// Left, Top, Right border size.
   static const _frameBorderSize = 15;
-  static const _frameBorderSizeLR = 80;
+  static const _frameBorderSizeLR = 72;
   static const _frameBorderSizeT = 200;
   static const _frameBorderSizeB = 240;
 
