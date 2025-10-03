@@ -8,8 +8,8 @@ import 'package:io_photobooth/stickers/stickers.dart';
 import 'package:photobooth_ui/photobooth_ui.dart';
 
 const _videoConstraints = VideoConstraints(
-  facingMode: FacingMode(type: CameraType.user, constrain: Constrain.exact),
-  width: VideoSize(minimum: 480, ideal: 760, maximum: 1080),
+  facingMode: FacingMode(type: CameraType.user, constrain: Constrain.ideal),
+  width: VideoSize(minimum: 480, ideal: 768, maximum: 1080),
   height: VideoSize(minimum: 640, ideal: 1024, maximum: 1440),
 );
 
@@ -18,8 +18,8 @@ const _videoConstraintsRear = VideoConstraints(
     type: CameraType.rear,
     constrain: Constrain.ideal,
   ),
-  width: VideoSize(minimum: 480, ideal: 720, maximum: 1080),
-  height: VideoSize(minimum: 640, ideal: 960, maximum: 1440),
+  width: VideoSize(minimum: 600, ideal: 768, maximum: 1080),
+  height: VideoSize(minimum: 800, ideal: 1024, maximum: 1440),
 );
 
 class PhotoboothPage extends StatelessWidget {

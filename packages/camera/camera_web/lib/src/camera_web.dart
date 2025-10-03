@@ -130,10 +130,11 @@ class Camera {
       throw const CameraNotSupportedException();
     }
 
-    videoElement = html.VideoElement()..applyDefaultStyles();
-    // if (options.video.facingMode?.type == CameraType.rear) {
-    //   videoElement = html.VideoElement()..applyRearCameraStyles();
-    // }
+    if (options.video.facingMode?.type == CameraType.rear) {
+      videoElement = html.VideoElement()..applyRearCameraStyles();
+    } else {
+      videoElement = html.VideoElement()..applyDefaultStyles();
+    }
 
     divElement = html.DivElement()
       ..style.setProperty('object-fit', 'cover')
@@ -214,10 +215,38 @@ class Camera {
     final videoWidth = videoElement.videoWidth;
     final videoHeight = videoElement.videoHeight;
     final canvas = html.CanvasElement(width: videoWidth, height: videoHeight);
-    canvas.context2D
-      ..translate(videoWidth, 0)
-      ..scale(-1, 1)
-      ..drawImageScaled(videoElement, 0, 0, videoWidth, videoHeight);
+
+    final ctx = canvas.context2D;
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, videoWidth, videoHeight);
+
+    if (options.video.facingMode?.type != CameraType.rear) {
+      ctx.setTransform(-1, 0, 0, 1, videoWidth.toDouble(), 0);
+    }
+
+    // Draw one time (no extra translate/scale)
+    ctx.drawImageScaled(
+      videoElement,
+      0,
+      0,
+      videoWidth.toDouble(),
+      videoHeight.toDouble(),
+    );
+
+    ctx.restore();
+
+    // const scaleY = 1;
+    // final scaleX = (options.video.facingMode?.type == CameraType.rear) ? 1 : -1;
+    // canvas.context2D
+    //   ..save()
+    //   ..setTransform(scaleX, 0, 0, scaleY, videoWidth, 0)
+    //   ..clearRect(0, 0, videoWidth, videoHeight)
+    //   ..translate(videoWidth, 0)
+    //   ..scale(scaleX, scaleY)
+    //   ..drawImageScaled(videoElement, 0, 0, videoWidth, videoHeight)
+    //   ..restore();
+
     final blob = await canvas.toBlob();
     return CameraImage(
       data: html.Url.createObjectUrl(blob),
