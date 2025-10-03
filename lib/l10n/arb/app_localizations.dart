@@ -393,7 +393,7 @@ abstract class AppLocalizations {
   /// Text displayed on the second subheadline on the photobooth page when unknown error occurs
   ///
   /// In en, this message translates to:
-  /// **'If this issue persists, please contact flutter-photo-booth@google.com'**
+  /// **'If this issue persists, please contact be1.digital@cheil.com'**
   String get photoBoothCameraErrorSubheadline2;
 
   /// Text displayed on headline on the photobooth page when camera is not supported

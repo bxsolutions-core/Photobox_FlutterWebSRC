@@ -167,7 +167,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get photoBoothCameraErrorSubheadline2 =>
-      'If this issue persists, please contact flutter-photo-booth@google.com';
+      'If this issue persists, please contact be1.digital@cheil.com';
 
   @override
   String get photoBoothCameraNotSupportedHeadline =>

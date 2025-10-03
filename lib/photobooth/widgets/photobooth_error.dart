@@ -115,7 +115,7 @@ class _PhotoboothCameraUnknownError extends StatelessWidget {
         SelectableText(
           l10n.photoBoothCameraErrorHeadline,
           style: theme.textTheme.displayLarge?.copyWith(
-            color: PhotoboothColors.white,
+            color: PhotoboothColors.black,
           ),
           textAlign: TextAlign.center,
         ),
@@ -123,7 +123,7 @@ class _PhotoboothCameraUnknownError extends StatelessWidget {
         SelectableText(
           l10n.photoBoothCameraErrorSubheadline1,
           style: theme.textTheme.displaySmall?.copyWith(
-            color: PhotoboothColors.white,
+            color: PhotoboothColors.black,
           ),
           textAlign: TextAlign.center,
         ),
@@ -131,7 +131,7 @@ class _PhotoboothCameraUnknownError extends StatelessWidget {
         SelectableText(
           l10n.photoBoothCameraErrorSubheadline2,
           style: theme.textTheme.displaySmall?.copyWith(
-            color: PhotoboothColors.white,
+            color: PhotoboothColors.black,
           ),
           textAlign: TextAlign.center,
         ),

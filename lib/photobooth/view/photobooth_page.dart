@@ -9,8 +9,8 @@ import 'package:photobooth_ui/photobooth_ui.dart';
 
 const _videoConstraints = VideoConstraints(
   facingMode: FacingMode(type: CameraType.user, constrain: Constrain.exact),
-  width: VideoSize(minimum: 480, ideal: 720, maximum: 1080),
-  height: VideoSize(minimum: 640, ideal: 960, maximum: 1440),
+  width: VideoSize(minimum: 480, ideal: 760, maximum: 1080),
+  height: VideoSize(minimum: 640, ideal: 1024, maximum: 1440),
 );
 
 const _videoConstraintsRear = VideoConstraints(
@@ -54,7 +54,7 @@ class _PhotoboothViewState extends State<PhotoboothView> {
 
   void _resetChild() => setState(() => _childKey = UniqueKey());
 
-  final _controller = CameraController(
+  CameraController _controller = CameraController(
     options: const CameraOptions(
       audio: AudioConstraints(),
       video: _videoConstraints,
@@ -63,6 +63,8 @@ class _PhotoboothViewState extends State<PhotoboothView> {
 
   bool get _isCameraAvailable =>
       _controller.value.status == CameraStatus.available;
+
+  bool _switchingCamera = false;
 
   Future<void> _play() async {
     if (!_isCameraAvailable) return;
@@ -102,8 +104,37 @@ class _PhotoboothViewState extends State<PhotoboothView> {
   }
 
   Future<void> _onToggleCameraType() async {
+    setState(() => _switchingCamera = true);
+
+    await _stop();
+
     if (_controller.options.video.facingMode?.type == CameraType.rear) {
-    } else {}
+      setState(() {
+        _controller = CameraController(
+          options: const CameraOptions(
+            audio: AudioConstraints(),
+            video: _videoConstraints,
+          ),
+        );
+      });
+    } else {
+      setState(() {
+        _controller = CameraController(
+          options: const CameraOptions(
+            audio: AudioConstraints(),
+            video: _videoConstraintsRear,
+          ),
+        );
+      });
+    }
+
+    debugPrint(
+      '_cameraControllerType = ${_controller.options.video.facingMode?.type}',
+    );
+
+    await _initializeCameraController();
+
+    setState(() => _switchingCamera = false);
   }
 
   @override
@@ -119,17 +150,25 @@ class _PhotoboothViewState extends State<PhotoboothView> {
       body: _PhotoboothBackground(
         aspectRatio: aspectRatio,
         onSnapPressed: () => _onSnapPressed(aspectRatio: aspectRatio),
-        child: Camera(
-          controller: _controller,
-          placeholder: (_) => const SizedBox(),
-          preview: (context, preview) => PhotoboothPreview(
-            preview: preview,
-            onSnapPressed: () => _onSnapPressed(aspectRatio: aspectRatio),
-            onToggleCameraType: _onToggleCameraType,
-            aspectRatio: aspectRatio,
-          ),
-          error: (context, error) => PhotoboothError(error: error),
-        ),
+        child: _switchingCamera
+            ? const Center(
+                child: SizedBox(
+                  width: 64,
+                  height: 64,
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : Camera(
+                controller: _controller,
+                placeholder: (_) => const SizedBox(),
+                preview: (context, preview) => PhotoboothPreview(
+                  preview: preview,
+                  onSnapPressed: () => _onSnapPressed(aspectRatio: aspectRatio),
+                  onToggleCameraType: _onToggleCameraType,
+                  aspectRatio: aspectRatio,
+                ),
+                error: (context, error) => PhotoboothError(error: error),
+              ),
       ),
     );
   }
