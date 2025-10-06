@@ -44,7 +44,7 @@ class ShareBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
             child: Image.asset(
-              'assets/backgrounds/DORCO_logo_ENG_Red.png',
+              'assets/backgrounds/DORCO_logo_eng_red.png',
               width: size.height <= PhotoboothBreakpoints.small
                   ? size.width * 0.4
                   : size.width * 0.5,
@@ -56,38 +56,61 @@ class ShareBody extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 30),
+
                   if (isUploadSuccess)
-                    Container(
-                      alignment: Alignment.center,
-                      constraints: const BoxConstraints(
-                        maxWidth: 160,
-                        maxHeight: 160,
-                      ),
-                      child: PrettyQrView.data(
-                        data: qrData,
-                        decoration: const PrettyQrDecoration(
-                          background: Colors.white,
-                          // image: PrettyQrDecorationImage(
-                          //   image: AssetImage('assets/icons/dorco_icon.png'),
-                          // ),
-                          quietZone: PrettyQrQuietZone.pixels(8),
+                    Column(
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          constraints: const BoxConstraints(
+                            maxWidth: 160,
+                            maxHeight: 160,
+                          ),
+                          child: PrettyQrView.data(
+                            data: qrData,
+                            decoration: const PrettyQrDecoration(
+                              background: Colors.white,
+                              quietZone: PrettyQrQuietZone.pixels(8),
+                            ),
+                          ),
                         ),
-                      ),
+                        Text(
+                          "PRINT",
+                          style: PhotoboothTextStyle.headline1.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsGeometry.symmetric(
+                            horizontal: 24,
+                          ),
+                          child: Text(
+                            "Scan the QR Code at the print station to collect photo",
+                            textAlign: TextAlign.center,
+                            style: PhotoboothTextStyle.subtitle1.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
 
                   if (compositedImage != null && file != null)
                     Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const SizedBox(height: 64),
-                        Container(
-                          alignment: Alignment.center,
-                          constraints: const BoxConstraints(
-                            maxHeight: 200,
+                        Padding(
+                          padding: const EdgeInsetsGeometry.symmetric(
+                            vertical: 24,
                           ),
-                          child: SharePreviewPhoto(image: compositedImage),
+                          child: Container(
+                            alignment: Alignment.center,
+                            constraints: const BoxConstraints(
+                              maxHeight: 200,
+                            ),
+                            child: SharePreviewPhoto(image: compositedImage),
+                          ),
                         ),
-                        const SizedBox(height: 30),
                         ResponsiveLayoutBuilder(
                           small: (_, __) => MobileButtonsLayout(
                             image: compositedImage,
@@ -165,6 +188,11 @@ class MobileButtonsLayout extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Text(
+          "(Save photo to phone)",
+          textAlign: TextAlign.center,
+          style: PhotoboothTextStyle.subtitle2.copyWith(color: Colors.white),
+        ),
         DownloadButton(file: file),
         // const SizedBox(height: 20),
         // ShareButton(image: image),

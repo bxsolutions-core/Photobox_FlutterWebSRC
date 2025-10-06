@@ -100,7 +100,7 @@ class CountdownTimer extends StatelessWidget {
             child: Text(
               '$seconds',
               style: theme.textTheme.displayLarge?.copyWith(
-                color: PhotoboothColors.white,
+                color: PhotoboothColors.black,
                 fontWeight: FontWeight.w500,
               ),
             ),
