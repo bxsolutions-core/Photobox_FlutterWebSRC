@@ -72,13 +72,11 @@ class PhotosRepository {
     ImageCompositor? imageCompositor,
   }) : _firebaseStorage = firebaseStorage,
        _imageCompositor = imageCompositor ?? ImageCompositor(),
-       _campaignID = 'DORCO-2025-001';
+       _campaignID = Env.campaignID;
 
   final FirebaseStorage _firebaseStorage;
   final ImageCompositor _imageCompositor;
   final String _campaignID;
-
-  final _useFirebaseUpload = false;
 
   /// Uploads photo to the [FirebaseStorage] if it doesn't already exist
   /// and returns [ShareUrls].
@@ -91,7 +89,7 @@ class PhotosRepository {
       persistenceEnabled: true,
     );
 
-    if (_useFirebaseUpload) {
+    if (Env.useFirebaseUpload) {
       Reference reference;
       try {
         reference = _firebaseStorage.ref('uploads/$fileName');
@@ -184,21 +182,9 @@ class PhotosRepository {
   }) async {
     try {
       var uri = Uri.parse(
-        'https://eventpro.cheil.rocks/_/api/v1/dorcoroadshow/addPhotoEntry',
+        '${Env.apiBase}/dorcoroadshow/addPhotoEntry',
       );
 
-      final platformHelper = PlatformHelper();
-      if (platformHelper.isRunningOnLocalhost) {
-        uri = Uri.parse(
-          'http://localhost/eventpro.cheil.rocks/api/v1/dorcoroadshow/addPhotoEntry',
-        );
-      } else {
-        if (kDebugMode) {
-          uri = Uri.parse(
-            'https://eventpro.cheil.rocks/_stg/api/v1/dorcoroadshow/addPhotoEntry',
-          );
-        }
-      }
       debugPrint('_trackPhotoEntry() ::-> $uri');
 
       final res = await http.post(

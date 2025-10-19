@@ -9,6 +9,7 @@ import 'package:io_photobooth/l10n/l10n.dart';
 import 'package:io_photobooth/photobooth/photobooth.dart';
 import 'package:io_photobooth/share/share.dart';
 import 'package:photobooth_ui/photobooth_ui.dart';
+import 'package:platform_helper/platform_helper.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 class ShareBody extends StatelessWidget {
@@ -32,11 +33,11 @@ class ShareBody extends StatelessWidget {
     );
 
     debugPrint('SharePage.Body() ::-> ${file?.name}');
-    final qrData = 'dorcoprint://${file?.name}';
+    final qrData = '${Env.qrPrefix}://${file?.name}';
     final size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 18),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -44,10 +45,8 @@ class ShareBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsetsGeometry.symmetric(vertical: 16),
             child: Image.asset(
-              'assets/backgrounds/DORCO_logo_eng_red.png',
-              width: size.height <= PhotoboothBreakpoints.small
-                  ? size.width * 0.4
-                  : size.width * 0.5,
+              'assets/backgrounds/DORCO_logo_ENG_Red.png',
+              width: size.width * 0.55,
             ),
           ),
           if (compositeStatus.isSuccess)
@@ -56,7 +55,6 @@ class ShareBody extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 30),
-
                   if (isUploadSuccess)
                     Column(
                       children: [
@@ -76,7 +74,7 @@ class ShareBody extends StatelessWidget {
                         ),
                         Text(
                           "PRINT",
-                          style: PhotoboothTextStyle.headline1.copyWith(
+                          style: PhotoboothTextStyle.headline2.copyWith(
                             color: Colors.white,
                           ),
                         ),
@@ -188,12 +186,16 @@ class MobileButtonsLayout extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        DownloadButton(file: file),
         Text(
           "(Save photo to phone)",
           textAlign: TextAlign.center,
-          style: PhotoboothTextStyle.subtitle2.copyWith(color: Colors.white),
+          style: PhotoboothTextStyle.subtitle2.copyWith(
+            color: Colors.black38,
+            fontWeight: FontWeight.w400,
+            fontSize: 12
+          ),
         ),
-        DownloadButton(file: file),
         // const SizedBox(height: 20),
         // ShareButton(image: image),
         // const SizedBox(height: 20),
@@ -235,7 +237,7 @@ class DownloadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return OutlinedButton(
+    return ElevatedButton(
       onPressed: () {
         trackEvent(
           category: 'button',
@@ -244,7 +246,10 @@ class DownloadButton extends StatelessWidget {
         );
         file.saveTo('');
       },
-      child: Text(l10n.sharePageDownloadButtonText),
+      child: Text(
+        l10n.sharePageDownloadButtonText.toUpperCase(),
+        style: const TextStyle(color: Colors.white, ),
+      ),
     );
   }
 }

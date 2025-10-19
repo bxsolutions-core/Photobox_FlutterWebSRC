@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:io_photobooth/external_links/external_links.dart';
 import 'package:io_photobooth/l10n/l10n.dart';
 import 'package:io_photobooth/photobooth/photobooth.dart';
 import 'package:io_photobooth/share/share.dart';
@@ -28,7 +29,7 @@ class SharePage extends StatelessWidget {
           assets: state.assets,
           aspectRatio: state.aspectRatio,
           shareText: l10n.socialMediaShareLinkText,
-          isSharingEnabled: true
+          isSharingEnabled: true,
         )..add(const ShareViewLoaded());
       },
       child: const ShareView(),
@@ -41,17 +42,28 @@ class ShareView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     context.read<ShareBloc>().add(const ShareOnAutomatic());
 
     return Scaffold(
       body: ShareStateListener(
         child: const AppPageView(
           background: ShareBackground(),
-          body: ShareBody(),
+          body: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ShareBody(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _ShareRetakeButton(),
+                  SizedBox(width: 8),
+                  _ShareExitButton(),
+                ],
+              ),
+            ],
+          ),
           footer: SizedBox(height: 0), //WhiteFooter(),
           overlays: [
-            _ShareRetakeButton(),
             ShareProgressOverlay(),
           ],
         ),
@@ -95,7 +107,40 @@ class _ShareRetakeButton extends StatelessWidget {
           verticalOffset: 50,
           message: l10n.retakeButtonTooltip,
           child: Image.asset(
-            'assets/icons/retake_button_icon.png',
+            'assets/icons/camera_retake_button_icon.png',
+            height: 44,
+            width: 44,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ShareExitButton extends StatelessWidget {
+  const _ShareExitButton();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final isLoading = context.select(
+      (ShareBloc bloc) => bloc.state.compositeStatus.isLoading,
+    );
+    if (isLoading) return const SizedBox();
+    return Positioned(
+      right: 15,
+      top: 15,
+      child: Semantics(
+        focusable: true,
+        button: true,
+        label: "Exit",
+        child: AppTooltipButton(
+          key: const Key('sharePage_exit_appTooltipButton'),
+          onPressed: launchDorcoSleekHomepage,
+          verticalOffset: 50,
+          message: 'Exit',
+          child: Image.asset(
+            'assets/icons/home_button_icon.png',
             height: 44,
             width: 44,
           ),

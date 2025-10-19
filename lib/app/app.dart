@@ -6,6 +6,7 @@ import 'package:io_photobooth/l10n/arb/app_localizations.dart';
 import 'package:io_photobooth/photobooth/photobooth.dart';
 import 'package:photobooth_ui/photobooth_ui.dart';
 import 'package:photos_repository/photos_repository.dart';
+import 'package:platform_helper/platform_helper.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -43,14 +44,19 @@ class _App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'DORCO Sleek Photobooth',
+      debugShowCheckedModeBanner: Env.showDebugOverlays,
+      // showPerformanceOverlay: Env.showDebugOverlays,
+      // checkerboardRasterCacheImages: Env.showDebugOverlays,
+      // checkerboardOffscreenLayers: Env.showDebugOverlays,
+
+      title: Env.campaignAppName,
       theme: theme,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
       ],
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const PhotoboothPage()
+      home: const PhotoboothPage(),
     );
   }
 }
