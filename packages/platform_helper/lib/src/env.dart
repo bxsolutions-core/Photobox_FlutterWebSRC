@@ -16,14 +16,7 @@ class Env {
     final host = Uri.base.host;
     final path = Uri.base.path;
 
-    if (host.contains('stg') || path.contains('stg')) {
-      // STAGING (Plesk)
-      apiBase = 'https://eventpro.cheil.rocks/_stg/api/v1';
-      appBase = 'https://eventpro.cheil.rocks/_stg/apps';
-
-      showDebugOverlays = true;
-      useFirebaseUpload = false;
-    } else if (host == 'localhost') {
+    if (host == 'localhost') {
       // LOCALHOST
       apiBase = 'http://localhost/eventpro.cheil.rocks/api/v1';
       appBase = 'http://localhost/eventpro.cheil.rocks/apps';
@@ -31,12 +24,21 @@ class Env {
       showDebugOverlays = true;
       useFirebaseUpload = false;
     } else {
-      // PRODUCTION (Plesk)
-      apiBase = 'https://eventpro.cheil.rocks/_/api/v1';
-      appBase = 'https://eventpro.cheil.rocks/_/apps';
+      if (path.contains('stg')) {
+        // STAGING (Plesk)
+        apiBase = 'https://eventpro.cheil.rocks/_stg/api/v1';
+        appBase = 'https://eventpro.cheil.rocks/_stg/apps';
 
-      showDebugOverlays = false;
-      useFirebaseUpload = true;
+        showDebugOverlays = true;
+        useFirebaseUpload = false;
+      } else {
+        // PRODUCTION (Plesk)
+        apiBase = 'https://eventpro.cheil.rocks/_/api/v1';
+        appBase = 'https://eventpro.cheil.rocks/_/apps';
+
+        showDebugOverlays = false;
+        useFirebaseUpload = true;
+      }
     }
 
     debugPrint('Env [apiBase=$apiBase, appBase=$appBase] | path=$path');
