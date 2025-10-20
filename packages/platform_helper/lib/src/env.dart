@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
+
 class Env {
   static late final String apiBase;
   static late final String appBase;
   static late final bool showDebugOverlays;
+  static late final bool useFirebaseUpload;
 
   static const String campaignName = 'DORCO Sleek Event';
   static const String campaignAppName = 'DORCO Sleek Photobooth';
@@ -9,11 +12,11 @@ class Env {
 
   static const String qrPrefix = 'dorcoprint';
 
-  static late final bool useFirebaseUpload;
-
   static void init() {
     final host = Uri.base.host;
-    if (host.contains('stg')) {
+    final path = Uri.base.path;
+
+    if (host.contains('stg') || path.contains('stg')) {
       // STAGING (Plesk)
       apiBase = 'https://eventpro.cheil.rocks/_stg/api/v1';
       appBase = 'https://eventpro.cheil.rocks/_stg/apps';
@@ -35,5 +38,7 @@ class Env {
       showDebugOverlays = false;
       useFirebaseUpload = true;
     }
+
+    debugPrint('Env [apiBase=$apiBase, appBase=$appBase] | path=$path');
   }
 }
