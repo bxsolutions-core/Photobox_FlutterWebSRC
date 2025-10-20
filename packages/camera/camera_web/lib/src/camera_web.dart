@@ -221,7 +221,7 @@ class Camera {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, videoWidth, videoHeight);
 
-    if (options.video.facingMode?.type != CameraType.rear) {
+    if (options.video.facingMode?.type == CameraType.user) {
       ctx.setTransform(-1, 0, 0, 1, videoWidth.toDouble(), 0);
     }
 
