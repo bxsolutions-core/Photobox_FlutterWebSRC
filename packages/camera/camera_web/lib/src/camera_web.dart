@@ -130,10 +130,10 @@ class Camera {
       throw const CameraNotSupportedException();
     }
 
-    if (options.video.facingMode?.type == CameraType.rear) {
-      videoElement = html.VideoElement()..applyRearCameraStyles();
-    } else {
+    if (options.video.facingMode?.type == CameraType.user) {
       videoElement = html.VideoElement()..applyDefaultStyles();
+    } else {
+      videoElement = html.VideoElement()..applyRearCameraStyles();
     }
 
     divElement = html.DivElement()

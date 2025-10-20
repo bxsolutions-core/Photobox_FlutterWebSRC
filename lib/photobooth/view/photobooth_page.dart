@@ -8,16 +8,21 @@ import 'package:io_photobooth/stickers/stickers.dart';
 import 'package:photobooth_ui/photobooth_ui.dart';
 
 const _videoConstraints = VideoConstraints(
-  facingMode: FacingMode(type: CameraType.user, constrain: Constrain.ideal),
+  facingMode: FacingMode(
+    type: CameraType.user,
+    constrain: Constrain.ideal,
+  ),
   width: VideoSize(minimum: 480, ideal: 768, maximum: 1080),
   height: VideoSize(minimum: 640, ideal: 1024, maximum: 1440),
 );
 
 const _videoConstraintsRear = VideoConstraints(
   facingMode: FacingMode(
-    type: CameraType.rear,
+    type: CameraType.environment,
     constrain: Constrain.ideal,
   ),
+  // width: VideoSize(minimum: 600, ideal: 768, maximum: 1080),
+  // height: VideoSize(minimum: 800, ideal: 1024, maximum: 1440),
   width: VideoSize(minimum: 600, ideal: 1080, maximum: 1440),
   height: VideoSize(minimum: 800, ideal: 1440, maximum: 1920),
 );
@@ -108,16 +113,7 @@ class _PhotoboothViewState extends State<PhotoboothView> {
 
     await _stop();
 
-    if (_controller.options.video.facingMode?.type == CameraType.rear) {
-      setState(() {
-        _controller = CameraController(
-          options: const CameraOptions(
-            audio: AudioConstraints(),
-            video: _videoConstraints,
-          ),
-        );
-      });
-    } else {
+    if (_controller.options.video.facingMode?.type == CameraType.user) {
       setState(() {
         _controller = CameraController(
           options: const CameraOptions(
@@ -126,13 +122,22 @@ class _PhotoboothViewState extends State<PhotoboothView> {
           ),
         );
       });
+    } else {
+      setState(() {
+        _controller = CameraController(
+          options: const CameraOptions(
+            audio: AudioConstraints(),
+            video: _videoConstraints,
+          ),
+        );
+      });
     }
 
+    await _initializeCameraController();
     debugPrint(
       '_cameraControllerType = ${_controller.options.video.facingMode?.type}',
     );
 
-    await _initializeCameraController();
 
     setState(() => _switchingCamera = false);
   }
